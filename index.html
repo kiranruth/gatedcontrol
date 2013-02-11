@@ -1,0 +1,197 @@
+<html>
+	<head>
+		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap.no-icons.min.css" rel="stylesheet">
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
+		<link href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css" rel="stylesheet">
+		<script src="https://raw.github.com/kiranruth/gatedcontrol/master/src/gatedcontrol.js"></script>
+		<link href="https://raw.github.com/kiranruth/gatedcontrol/master/src/gatedcontrol.css" rel="stylesheet">
+		<script type="text/javascript">
+		$(document).ready(function(){
+
+		    $('#example1').gatedControl();
+
+		    $('#example2').gatedControl({
+		    	"text":"Are you sure you want to do this ?",
+		    	"ellipses":false,
+		    	"fontSize":10
+			});
+		    $("#gcOpen").click(function(event){
+		    	event.preventDefault();
+		    	$("#example2").gatedControl("open");
+		    });
+		    $("#gcClose").click(function(event){
+		    	event.preventDefault();
+		    	$("#example2").gatedControl("close");
+		    });
+
+		    var example3 = $('#example3').gatedControl({
+		        onOpen:function(){
+		        	alert("opened");
+		        },
+		        onClose:function(){
+		        	alert("closed");	
+		        }
+		    });
+		    $("#gcOpen3").click(function(event){
+		    	event.preventDefault();
+		    	$("#example3").gatedControl("open");
+		    });
+		    $("#gcClose3").click(function(event){
+		    	event.preventDefault();
+		    	$("#example3").gatedControl("close");
+		    });	
+
+		    $("#code").gatedControl({
+		    	"text":"Click to get coupon code",
+		    	"ellipses":false,
+		    	"fontSize":16,
+		        onOpen:function(){
+		        	$("#code").html('Please wait..').slideDown(2000);
+		        	setTimeout(function() {
+					      $("#code").html('<div class="alert alert-success">Coupon code :iw#ue23@30i99</div>');
+					}, 2000);
+		        	
+		        }		    	
+		    });	    
+
+		});		
+		</script>
+		<style>
+		body{
+			padding-top: 60px;
+		}
+		</style>
+	</head>
+	<body onload="prettyPrint()" >
+
+
+	    <div class="container">
+	    	<h1>Gated control</h1>
+	    	<p>
+	    		Allows access to control in a two step process. Can be used to conceal codes or controls as demonstrated in the examples below
+	    	</p>
+	    	<h5>Includes</h5>
+	    	<pre class="prettyprint language-js">
+&lt;script src="/path_to_gatedcontrol.js&gt;&lt;/script&gt;
+&lt;link href="/path_to_gatedcontrol.css" rel="stylesheet"&gt;
+</pre>
+	    	<h5>Simple Usage</h5>
+	    	<div class="row ">
+	    		<div class="span5">
+	    			<pre class="prettyprint language-js">
+$(document).ready(function(){
+    $('input[type=text]').gatedControl();
+});	    				
+&lt;input type="text"&gt; 
+	    			</pre>
+	    		</div>
+	    		<div class="span5 well">
+	    			<input  id="example1" type="text">
+	    		</div>	    		
+	    	</div>
+	    	
+	    	<h5>Options</h5>
+	    	<div class="row ">
+	    		<div class="span5">    			
+	    			<pre class="prettyprint language-js" >
+$(document).ready(function(){
+    $('#example2').gatedControl({
+    	"text":"Are you sure you want to do this ?",
+    	"ellipses":false,
+    	"fontSize":10    	
+	});
+    $("#gcOpen").click(function(event){
+    	event.preventDefault();
+    	$("#example2").gatedControl("open");
+    });
+    $("#gcClose").click(function(event){
+    	event.preventDefault();
+    	$("#example2").gatedControl("close");
+    });    
+});	    				
+&lt;input type="text" id="example2"/&gt; 
+&lt;a href="#" id="gcOpen" &gt;Open&lt;/a&gt;
+&lt;a href="#" id="gcClose" &gt;Close&lt;/a&gt;
+	    			</pre>
+	    		</div>
+	    		<div class="span5 well">
+	    			<input type="text" id="example2">
+	    			<div style="padding-left:20px">
+	    			<a href="#" id="gcOpen" class="btn btn-primary">Open</a>
+	    			<a href="#" id="gcClose"  class="btn btn-inverse">Close</a>
+	    			</div>
+	    			<br/>
+	    			<p>
+	    				options:<br/>
+	    				<span class="label label-info">text</span> : text for the gate. <br/>
+	    				<span class="label label-info">ellipses</span> : true or false ,default is true. Ellipses is applied for the gate. <br/>
+	    				<span class="label label-info">fontSize</span> : font-size for the gate. <br/>
+	    				<span class="label label-info">open</span> : Opens the gate to reveal the control<br/>
+	    				<span class="label label-info">close</span> : Closes the gate to conceal the control <br/>
+	    			</p>	
+	    		</div>	    		
+	    	</div>
+
+
+	    	<h5>Callbacks</h5>
+	    	<div class="row ">
+	    		<div class="span5">    			
+	    			<pre class="prettyprint language-js" >
+$(document).ready(function(){
+    $('#example3').gatedControl({
+        onOpen:function(){
+        	alert("opened");
+        },
+        onClose:function(){
+        	alert("closed");	
+        }
+    });  
+});	    				
+&lt;input type="text" id="example3"/&gt; 
+	    			</pre>
+	    		</div>
+	    		<div class="span5 well">
+	    			<input type="text" id="example3">
+	    			<br/>
+	    			<p>
+	    			<div style="padding-left:20px">
+	    			<a href="#" id="gcOpen3" class="btn btn-primary">Open</a>
+	    			<a href="#" id="gcClose3"  class="btn btn-inverse">Close</a>
+	    			<br/>
+	    			</div>	    				
+	    				Callbacks are:<br/>
+	    				<span class="label label-info">onOpen</span>  : Triggered on open of control<br/>
+	    				<span class="label label-info">onClose</span>  : Triggered on close of control <br/>
+	    			</p>	
+	    		</div>	    		
+	    	</div>
+
+	    	<h5>A more realistic example</h5>
+	    	<div class="row ">
+	    		<div class="span5">    			
+	    			<pre class="prettyprint language-js" >
+$("#code").gatedControl({
+	"text":"Click to get coupon code",
+	"ellipses":false,
+	"fontSize":16,
+    onOpen:function(){
+    	// do some stuff 
+    	// and get some code 
+    }		    	
+});	  				
+&lt;input type="text" id="example3"/&gt; 
+	    			</pre>
+	    		</div>
+	    		<div class="span5 ">
+					<div id="code" style="height:20px;width:250px">
+						&nbsp;
+					</div>	
+	    		</div>	    		
+	    	</div>	    	
+
+
+
+	    </div>
+	</body>
+</html>
